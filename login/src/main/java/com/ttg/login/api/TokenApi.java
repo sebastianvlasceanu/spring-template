@@ -3,11 +3,13 @@ package com.ttg.login.api;
 import com.ttg.login.dto.LoginRequestDto;
 import com.ttg.login.dto.RefreshRequestDto;
 import com.ttg.login.service.TokenService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/token")
+@AllArgsConstructor
 public class TokenApi {
     private TokenService tokenService;
     @GetMapping(path = "/introspect")
