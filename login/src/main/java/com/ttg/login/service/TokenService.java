@@ -1,5 +1,7 @@
 package com.ttg.login.service;
 
+import com.ttg.login.dto.LoginRequestDto;
+import com.ttg.login.dto.RefreshRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,5 +18,15 @@ public class TokenService {
         return keycloakWebclient.get()
                 .uri("insert uri here")
                 .retrieve().bodyToMono(Object.class);
+    }
+
+    public Mono<Object> login(LoginRequestDto loginRequestDto) {
+        //TODO tbd
+        return Mono.empty();
+    }
+
+    public Mono<Object> refresh(RefreshRequestDto refreshRequestDto) {
+        //TODO tbd
+        return Mono.empty();
     }
 }
