@@ -1,0 +1,1 @@
+//TODO keycloak adapter works with ketty/ tomcat or Undertow. will need to configure jetty here.  

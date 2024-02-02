@@ -18,7 +18,7 @@ import java.time.Duration;
 
 @Slf4j
 @Configuration
-public class KeycloakWebclient {
+public class KeycloakWebclientConfig {
 
     @Bean
     public WebClient keycloakWebclient (WebClient.Builder cgsKeycloakWebclientBuilder) {
