@@ -9,7 +9,7 @@ plugins {
 
 
 group = 'com.ttg.cache'
-version = '0.0.1'
+version = '0.0.1-SNAPSHOT'
 apply plugin: 'java'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
@@ -38,17 +38,24 @@ publishing {
 			from components.java
 			artifact sourcesJar
 			artifact javadocJar
+			versionMapping {
+				usage('java-api') {
+					fromResolutionOf('runtimeClasspath')
+				}
+				usage('java-runtime') {
+					fromResolutionResult()
+				}
+			}
 		}
 	}
 	repositories {
 		maven {
-			//TODO configure nexus to publish this into the nexus
-			name "..."
-			url ".."
+			name "cgs-repo"
+			url "http://10.4.101.121:8081/nexus/content/repositories/cgi-repo"
 			allowInsecureProtocol = true
 			credentials {
-				username "..."
-				password "..."
+				username "cgs-build"
+				password "admin123"
 			}
 		}
 	}
@@ -81,6 +88,15 @@ configurations {
 repositories {
 	mavenLocal()
 	mavenCentral()
+	maven {
+		name "cgs-repo"
+		url "http://10.4.101.121:8081/nexus/content/repositories/cgi-repo"
+		allowInsecureProtocol = true
+		credentials {
+			username "cgs-build"
+			password "admin123"
+		}
+	}
 }
 compileJava.dependsOn processResources
 processResources.dependsOn cleanResources
