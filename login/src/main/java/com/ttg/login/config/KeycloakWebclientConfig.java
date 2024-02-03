@@ -28,7 +28,7 @@ public class KeycloakWebclientConfig {
     @Bean
     public WebClient.Builder cgsKeycloakWebclientBuilder () {
         HttpClient httpClient = HttpClient.create()
-                .wiretap("weblcient", LogLevel.DEBUG, AdvancedByteBufFormat.TEXTUAL)
+                .wiretap("webclient", LogLevel.DEBUG, AdvancedByteBufFormat.TEXTUAL)
                 .responseTimeout(Duration.ofSeconds(3000))
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000);
         return WebClient.builder()
