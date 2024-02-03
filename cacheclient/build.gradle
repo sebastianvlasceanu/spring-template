@@ -1,0 +1,105 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.2'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'java-library'
+	id 'maven-publish'
+
+}
+
+
+group = 'com.ttg.cache'
+version = '0.0.1'
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: "maven-publish"
+bootJar.enabled = false
+jar.enabled = true
+
+task cleanResources(type: Delete) {
+	delete 'build/resources'
+}
+
+task sourcesJar(type: Jar) {
+	from sourceSets.main.allJava
+	archiveClassifier.set("sources")
+}
+
+task javadocJar(type: Jar) {
+	from javadoc
+	archiveClassifier.set("javadoc")
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			artifactId = 'cache-client'
+			from components.java
+			artifact sourcesJar
+			artifact javadocJar
+		}
+	}
+	repositories {
+		maven {
+			//TODO configure nexus to publish this into the nexus
+			name "..."
+			url ".."
+			allowInsecureProtocol = true
+			credentials {
+				username "..."
+				password "..."
+			}
+		}
+	}
+}
+
+java {
+	sourceCompatibility = '21'
+}
+
+configurations {
+	compileOnly {
+		canBeConsumed = true
+		canBeResolved = true
+		extendsFrom annotationProcessor
+	}
+	implementation {
+		canBeResolved = true
+		canBeConsumed = true
+	}
+	api {
+		canBeResolved = true
+		canBeResolved = true
+	}
+	runtimeOnly {
+		canBeResolved = true
+		canBeConsumed = true
+	}
+}
+
+repositories {
+	mavenLocal()
+	mavenCentral()
+}
+compileJava.dependsOn processResources
+processResources.dependsOn cleanResources
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis-reactive'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'io.projectreactor:reactor-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+}
+
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+

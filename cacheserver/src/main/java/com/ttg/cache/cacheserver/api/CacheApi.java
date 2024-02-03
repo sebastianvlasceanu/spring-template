@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/token")
+@RequestMapping("/cache")
 @AllArgsConstructor
 public class CacheApi {
     private CacheService cacheService;
